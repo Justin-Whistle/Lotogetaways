@@ -1,0 +1,830 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Golf Cart Rental Contract — LOTO Getaways</title>
+    <meta name="description" content="Fillable Golf Cart Rental Contract form for LOTO Getaways." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- PDF generator (client-side) -->
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+
+    <style>
+        :root {
+            --ink: #0D0C0B;
+            --muted: rgba(13, 12, 11, .65);
+            --bg: #fbfbfb;
+            --card: rgba(240, 240, 240, .75);
+            --stroke: rgba(13, 12, 11, .12);
+            --shadow: 0 18px 50px rgba(13, 12, 11, .12);
+            --shadow2: 0 10px 30px rgba(13, 12, 11, .10);
+            --radius: 22px;
+            --radius2: 16px;
+            --lake: #3E5FAF;
+            --copper: #985F40;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Manrope, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+            color: var(--ink);
+            background:
+                radial-gradient(1000px 600px at 10% -10%, rgba(62, 95, 175, .18), transparent 60%),
+                radial-gradient(900px 600px at 90% 10%, rgba(152, 95, 64, .14), transparent 60%),
+                var(--bg);
+        }
+
+        /* Match main page link styling */
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        a:visited {
+            color: inherit;
+        }
+
+        /* Force nav link look to match main page */
+        .nav-links a {
+            color: rgba(13, 12, 11, .74);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .nav-links a:visited {
+            color: rgba(13, 12, 11, .74);
+        }
+
+        /* MATCH main page wrap */
+        .wrap {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 0 18px;
+        }
+
+        /* =========================
+       NAVBAR (matches main page)
+       ========================= */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            backdrop-filter: blur(12px);
+            background: rgba(251, 251, 251, .62);
+            border-bottom: 1px solid var(--stroke);
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 74px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            letter-spacing: .2px;
+        }
+
+        .mark {
+            width: 36px;
+            height: 36px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(62, 95, 175, .95), rgba(152, 95, 64, .90));
+            box-shadow: 0 10px 24px rgba(13, 12, 11, .18);
+        }
+
+        .brand small {
+            display: block;
+            font-weight: 600;
+            color: rgba(13, 12, 11, .62);
+            margin-top: 2px;
+            letter-spacing: 0;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            color: rgba(13, 12, 11, .74);
+            font-weight: 600;
+        }
+
+        .nav-links a {
+            padding: 10px 10px;
+            border-radius: 12px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(186, 178, 164, .20);
+        }
+
+        .cta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn {
+            border: 1px solid var(--stroke);
+            background: rgba(240, 240, 240, .72);
+            box-shadow: var(--shadow2);
+            padding: 10px 12px;
+            border-radius: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            color: var(--ink);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, rgba(62, 95, 175, .95), rgba(62, 95, 175, .75));
+            border-color: rgba(62, 95, 175, .22);
+            color: #fff;
+        }
+
+        .hamburger {
+            display: none;
+        }
+
+        .hamburger button {
+            width: 42px;
+            height: 42px;
+            border-radius: 14px;
+            border: 1px solid var(--stroke);
+            background: rgba(240, 240, 240, .75);
+            box-shadow: var(--shadow2);
+            cursor: pointer;
+        }
+
+        .hamburger .lines {
+            width: 18px;
+            height: 12px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .hamburger span {
+            display: block;
+            height: 2px;
+            border-radius: 2px;
+            background: rgba(13, 12, 11, .80);
+        }
+
+        .mobile-drawer {
+            display: none;
+            position: fixed;
+            inset: 74px 0 auto 0;
+            z-index: 50;
+            background: rgba(251, 251, 251, .92);
+            border-bottom: 1px solid var(--stroke);
+            backdrop-filter: blur(12px);
+        }
+
+        .drawer-inner {
+            padding: 14px 18px 18px;
+        }
+
+        .drawer-inner a {
+            display: block;
+            padding: 12px 12px;
+            border-radius: 14px;
+            font-weight: 700;
+            color: rgba(13, 12, 11, .82);
+        }
+
+        .drawer-inner a:hover {
+            background: rgba(186, 178, 164, .22);
+        }
+
+        /* Active page highlighting */
+        .nav-links a.active,
+        .drawer-inner a.active {
+            background: rgba(62, 95, 175, .14);
+            border: 1px solid rgba(62, 95, 175, .22);
+        }
+
+        @media (max-width: 720px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: block;
+            }
+        }
+
+        /* =========================
+       PAGE CONTENT
+       ========================= */
+        main {
+            padding: 18px 0 28px;
+        }
+
+        .card {
+            border: 1px solid var(--stroke);
+            background: var(--card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 18px;
+            margin-top: 18px;
+        }
+
+        h1 {
+            margin: 0 0 6px;
+            font-size: 26px;
+            letter-spacing: -.4px;
+        }
+
+        p.lead {
+            margin: 0 0 14px;
+            color: var(--muted);
+            font-weight: 650;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 12px;
+        }
+
+        .field {
+            grid-column: span 6;
+            border: 1px solid rgba(13, 12, 11, .10);
+            background: rgba(251, 251, 251, .65);
+            border-radius: var(--radius2);
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        .field.third {
+            grid-column: span 4;
+        }
+
+        .field.quarter {
+            grid-column: span 3;
+        }
+
+        .field label {
+            font-size: 12px;
+            font-weight: 900;
+            color: rgba(13, 12, 11, .72);
+            letter-spacing: .2px;
+        }
+
+        input,
+        select,
+        textarea {
+            border: 0;
+            outline: none;
+            background: transparent;
+            font-size: 14px;
+            font-weight: 750;
+            color: rgba(13, 12, 11, .88);
+            width: 100%;
+            resize: vertical;
+        }
+
+        textarea {
+            min-height: 76px;
+        }
+
+        .rules {
+            margin-top: 14px;
+            border: 1px solid rgba(13, 12, 11, .10);
+            background: rgba(251, 251, 251, .55);
+            border-radius: var(--radius2);
+            padding: 14px;
+        }
+
+        .rules h2 {
+            margin: 0 0 8px;
+            font-size: 16px;
+            letter-spacing: -.2px;
+        }
+
+        .rules ol {
+            margin: 8px 0 0 18px;
+            color: rgba(13, 12, 11, .78);
+            font-weight: 650;
+            line-height: 1.35;
+        }
+
+        .rules li {
+            margin: 6px 0;
+        }
+
+        .checkrow {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: var(--radius2);
+            border: 1px solid rgba(13, 12, 11, .10);
+            background: rgba(251, 251, 251, .65);
+        }
+
+        .checkrow input {
+            width: auto;
+            margin-top: 3px;
+        }
+
+        .checkrow b {
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .checkrow span {
+            display: block;
+            color: var(--muted);
+            font-weight: 650;
+        }
+
+        .siggrid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .sigbox {
+            border: 1px solid rgba(13, 12, 11, .10);
+            background: rgba(251, 251, 251, .65);
+            border-radius: var(--radius2);
+            padding: 12px;
+        }
+
+        .sigbox h3 {
+            margin: 0 0 8px;
+            font-size: 14px;
+            letter-spacing: -.1px;
+        }
+
+        canvas {
+            width: 100%;
+            height: 140px;
+            border-radius: 14px;
+            border: 1px dashed rgba(13, 12, 11, .22);
+            background: rgba(240, 240, 240, .35);
+            touch-action: none;
+        }
+
+        .sig-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .note {
+            margin-top: 12px;
+            color: var(--muted);
+            font-weight: 650;
+            font-size: 12.5px;
+            line-height: 1.35;
+        }
+
+        .footer-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+
+        @media (max-width: 860px) {
+            .field {
+                grid-column: span 12;
+            }
+
+            .siggrid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- NAV -->
+    <header class="nav">
+        <div class="wrap nav-inner">
+            <a class="brand" href="index.html" aria-label="Go to home">
+                <span class="mark" aria-hidden="true"></span>
+                <div>
+                    LOTO Getaways
+                    <small>Golf Cart Rental Contract</small>
+                </div>
+            </a>
+
+            <nav class="nav-links" aria-label="Primary">
+                <a id="navHome" href="index.html">Home</a>
+                <a id="navContract" href="golf-cart-rental.html">Contract</a>
+                <a href="index.html#stays">Stays</a>
+                <a href="index.html#gallery">Gallery</a>
+                <a href="index.html#amenities">Amenities</a>
+                <a href="index.html#reviews">Reviews</a>
+            </nav>
+
+            <div class="cta">
+                <a class="btn" href="index.html#contact">Contact</a>
+                <a class="btn btn-primary" href="index.html#book">Check Availability</a>
+
+                <div class="hamburger">
+                    <button id="menuBtn" aria-expanded="false" aria-controls="mobileDrawer">
+                        <div class="lines" aria-hidden="true">
+                            <span></span><span></span><span></span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MOBILE DRAWER -->
+    <div class="mobile-drawer" id="mobileDrawer" role="dialog" aria-label="Menu">
+        <div class="drawer-inner wrap">
+            <a id="mNavHome" href="index.html">Home</a>
+            <a id="mNavContract" href="golf-cart-rental.html">Contract</a>
+            <a href="index.html#stays">Stays</a>
+            <a href="index.html#gallery">Gallery</a>
+            <a href="index.html#amenities">Amenities</a>
+            <a href="index.html#reviews">Reviews</a>
+            <a href="index.html#contact">Contact</a>
+        </div>
+    </div>
+
+    <!-- CONTENT -->
+    <main class="wrap">
+        <div class="card">
+            <h1>Golf Cart Rental Contract</h1>
+            <p class="lead">
+                Complete this form and press <b>Email Submission</b>. A PDF will download first, then your email app
+                opens
+                with the details addressed to <b>justinw@lotogetaways.com</b>.
+            </p>
+
+            <form id="contractForm">
+                <div class="grid">
+                    <div class="field third">
+                        <label for="contractDate">Date</label>
+                        <input id="contractDate" name="contractDate" type="date" required />
+                    </div>
+
+                    <div class="field">
+                        <label for="name">Name</label>
+                        <input id="name" name="name" type="text" placeholder="Full name" required />
+                    </div>
+
+                    <div class="field third">
+                        <label for="phone">Phone #</label>
+                        <input id="phone" name="phone" type="tel" placeholder="(555) 555-5555" required />
+                    </div>
+
+                    <div class="field full">
+                        <label for="email">Email Address</label>
+                        <input id="email" name="email" type="email" placeholder="guest@email.com" required />
+                    </div>
+
+                    <div class="field">
+                        <label for="dl">Driver’s License #</label>
+                        <input id="dl" name="dl" type="text" required />
+                    </div>
+
+                    <div class="field quarter">
+                        <label for="dlState">State</label>
+                        <input id="dlState" name="dlState" type="text" placeholder="MO" required />
+                    </div>
+
+                    <div class="field quarter">
+                        <label for="dlExp">Exp. Date</label>
+                        <input id="dlExp" name="dlExp" type="date" required />
+                    </div>
+
+                    <div class="field third">
+                        <label for="dob">Date of Birth</label>
+                        <input id="dob" name="dob" type="date" required />
+                    </div>
+
+                    <div class="field">
+                        <label for="insCompany">Insurance Company</label>
+                        <input id="insCompany" name="insCompany" type="text" required />
+                    </div>
+
+                    <div class="field">
+                        <label for="policy">Policy #</label>
+                        <input id="policy" name="policy" type="text" required />
+                    </div>
+
+                    <div class="field full">
+                        <label for="addDriver">Additional Driver (optional)</label>
+                        <input id="addDriver" name="addDriver" type="text" placeholder="Name of additional driver" />
+                    </div>
+
+                    <div class="field">
+                        <label for="rentalDate">Rental Date</label>
+                        <input id="rentalDate" name="rentalDate" type="date" required />
+                    </div>
+
+                    <div class="field">
+                        <label for="returnDate">Return Date</label>
+                        <input id="returnDate" name="returnDate" type="date" required />
+                    </div>
+
+                    <div class="field full">
+                        <label for="notes">Notes (optional)</label>
+                        <textarea id="notes" name="notes" placeholder="Anything we should know?"></textarea>
+                    </div>
+                </div>
+
+                <div class="rules">
+                    <h2>Golf Cart Rules (Acknowledgement)</h2>
+                    <ol>
+                        <li>Lessee must be a minimum of 21 years of age.</li>
+                        <li>Operator(s) must be 21+ and have a valid driver’s license in their possession.</li>
+                        <li>After sunset, lights must be on. Respect neighbors and quiet hours.</li>
+                        <li>No horseplay, racing, misuse, or off-road riding. Resort roadways only.</li>
+                        <li>Max 4 people; all passengers seated while cart is in motion.</li>
+                        <li>Return cart at the designated time.</li>
+                        <li>Report malfunctions immediately.</li>
+                        <li>Rule abuse forfeits rental privileges; no refunds for misuse returns.</li>
+                        <li>No alcohol on the cart; driving under the influence ends rental immediately.</li>
+                        <li>Violating any rules may cause immediate loss of rental privileges.</li>
+                    </ol>
+
+                    <div class="checkrow">
+                        <input id="agree" type="checkbox" required />
+                        <div>
+                            <b>I acknowledge and agree</b>
+                            <span>
+                                I confirm I have read and agree to the contract terms and rules, and confirm all
+                                information provided is accurate.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="siggrid">
+                    <div class="sigbox">
+                        <h3>Lessee Signature (type full name)</h3>
+                        <div class="field" style="margin:0;">
+                            <label for="typedSig">Typed Signature</label>
+                            <input id="typedSig" name="typedSig" type="text" placeholder="Type your full name"
+                                required />
+                        </div>
+                        <p class="note">Typing your name acts as your electronic signature.</p>
+                    </div>
+
+                    <div class="sigbox">
+                        <h3>Optional: Draw signature</h3>
+                        <canvas id="sigCanvas" width="900" height="280" aria-label="Signature canvas"></canvas>
+                        <div class="sig-actions">
+                            <button class="btn" type="button" id="clearSig">Clear</button>
+                            <button class="btn" type="button" id="saveSig">Save to PDF</button>
+                        </div>
+                        <p class="note">Click “Save to PDF” to embed the drawn signature into the downloaded PDF.</p>
+                    </div>
+                </div>
+
+                <div class="footer-actions">
+                    <button class="btn btn-primary" type="submit">Email Submission (Download PDF)</button>
+                </div>
+
+                <p class="note">
+                    Note: This uses <b>mailto</b>, so the guest’s email app opens. They must attach the downloaded PDF
+                    and send it.
+                    If you want true “submit → you receive PDF automatically”, tell me your hosting platform and I’ll
+                    wire it up.
+                </p>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        // =========================
+        // SETTINGS
+        // =========================
+        const DEST_EMAIL = "justinw@lotogetaways.com";
+
+        // =========================
+        // HELPERS
+        // =========================
+        const $ = (id) => document.getElementById(id);
+        function fmt(v) { return (v && String(v).trim()) ? String(v).trim() : "(blank)"; }
+
+        function buildSummary() {
+            const summary = {
+                "Contract Date": fmt($("contractDate").value),
+                "Name": fmt($("name").value),
+                "Phone": fmt($("phone").value),
+                "Email": fmt($("email").value),
+                "Driver's License #": fmt($("dl").value),
+                "DL State": fmt($("dlState").value),
+                "DL Exp Date": fmt($("dlExp").value),
+                "Date of Birth": fmt($("dob").value),
+                "Insurance Company": fmt($("insCompany").value),
+                "Policy #": fmt($("policy").value),
+                "Additional Driver": fmt($("addDriver").value),
+                "Rental Date": fmt($("rentalDate").value),
+                "Return Date": fmt($("returnDate").value),
+                "Notes": fmt($("notes").value),
+                "Typed Signature": fmt($("typedSig").value),
+                "Agreed to Terms": $("agree").checked ? "Yes" : "No"
+            };
+
+            let body = "GOLF CART RENTAL CONTRACT SUBMISSION\n\n";
+            for (const [k, v] of Object.entries(summary)) body += `${k}: ${v}\n`;
+            body += "\nSubmitted from: LOTO Getaways web form\n";
+            return body;
+        }
+
+        function openMailClient(subject, body) {
+            const url = `mailto:${encodeURIComponent(DEST_EMAIL)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.location.href = url;
+        }
+
+        // =========================
+        // NAV: Mobile drawer + Active link highlighting
+        // =========================
+        const menuBtn = document.getElementById("menuBtn");
+        const drawer = document.getElementById("mobileDrawer");
+
+        menuBtn.addEventListener("click", () => {
+            const open = drawer.style.display === "block";
+            drawer.style.display = open ? "none" : "block";
+            menuBtn.setAttribute("aria-expanded", String(!open));
+        });
+
+        drawer.querySelectorAll("a").forEach(a => a.addEventListener("click", () => {
+            drawer.style.display = "none";
+            menuBtn.setAttribute("aria-expanded", "false");
+        }));
+
+        function setActiveNav() {
+            const path = window.location.pathname.toLowerCase();
+            const isHome = path.endsWith("/") || path.endsWith("/index.html") || path.endsWith("index.html");
+            const isContract = path.includes("golf-cart-rental") || path.includes("contract");
+
+            const home = document.getElementById("navHome");
+            const contract = document.getElementById("navContract");
+            const mHome = document.getElementById("mNavHome");
+            const mContract = document.getElementById("mNavContract");
+
+            if (home) home.classList.toggle("active", isHome);
+            if (contract) contract.classList.toggle("active", isContract);
+            if (mHome) mHome.classList.toggle("active", isHome);
+            if (mContract) mContract.classList.toggle("active", isContract);
+        }
+        setActiveNav();
+
+        // =========================
+        // SIGNATURE CANVAS
+        // =========================
+        const canvas = $("sigCanvas");
+        const ctx = canvas.getContext("2d");
+        let drawing = false;
+        let last = null;
+        window.__SIG_DATA_URL = null;
+
+        function getPos(evt) {
+            const rect = canvas.getBoundingClientRect();
+            const isTouch = evt.touches && evt.touches.length;
+            const clientX = isTouch ? evt.touches[0].clientX : evt.clientX;
+            const clientY = isTouch ? evt.touches[0].clientY : evt.clientY;
+            return {
+                x: (clientX - rect.left) * (canvas.width / rect.width),
+                y: (clientY - rect.top) * (canvas.height / rect.height)
+            };
+        }
+
+        function startDraw(evt) { drawing = true; last = getPos(evt); }
+        function draw(evt) {
+            if (!drawing) return;
+            evt.preventDefault();
+            const pos = getPos(evt);
+            ctx.lineWidth = 4;
+            ctx.lineCap = "round";
+            ctx.strokeStyle = "rgba(13,12,11,.85)";
+            ctx.beginPath();
+            ctx.moveTo(last.x, last.y);
+            ctx.lineTo(pos.x, pos.y);
+            ctx.stroke();
+            last = pos;
+        }
+        function endDraw() { drawing = false; last = null; }
+        function clearCanvas() { ctx.clearRect(0, 0, canvas.width, canvas.height); window.__SIG_DATA_URL = null; }
+
+        canvas.addEventListener("mousedown", startDraw);
+        canvas.addEventListener("mousemove", draw);
+        window.addEventListener("mouseup", endDraw);
+
+        canvas.addEventListener("touchstart", startDraw, { passive: false });
+        canvas.addEventListener("touchmove", draw, { passive: false });
+        canvas.addEventListener("touchend", endDraw);
+
+        $("clearSig").addEventListener("click", clearCanvas);
+
+        $("saveSig").addEventListener("click", () => {
+            window.__SIG_DATA_URL = canvas.toDataURL("image/png");
+            $("saveSig").textContent = "Saved!";
+            setTimeout(() => ($("saveSig").textContent = "Save to PDF"), 1200);
+        });
+
+        // =========================
+        // PDF GENERATION
+        // =========================
+        async function generateAndDownloadPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({ unit: "pt", format: "letter" });
+
+            const margin = 48;
+            const pageWidth = doc.internal.pageSize.getWidth();
+            const maxWidth = pageWidth - margin * 2;
+
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(16);
+            doc.text("LOTO Getaways — Golf Cart Rental Contract", margin, 64);
+
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(11);
+
+            const body = buildSummary();
+            const lines = doc.splitTextToSize(body, maxWidth);
+            doc.text(lines, margin, 92);
+
+            if (window.__SIG_DATA_URL) {
+                doc.addPage();
+                doc.setFont("helvetica", "bold");
+                doc.setFontSize(14);
+                doc.text("Drawn Signature", margin, 72);
+                try {
+                    doc.addImage(window.__SIG_DATA_URL, "PNG", margin, 92, 320, 120);
+                } catch { }
+            }
+
+            const name = (document.getElementById("name").value || "Guest").trim().replace(/[^\w\-]+/g, "_");
+            const rentalDate = (document.getElementById("rentalDate").value || "RentalDate");
+            const filename = `GolfCartContract_${name}_${rentalDate}.pdf`;
+
+            doc.save(filename);
+            return filename;
+        }
+
+        // =========================
+        // SUBMIT: PDF + Mailto
+        // =========================
+        $("contractForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const r = $("rentalDate").value;
+            const ret = $("returnDate").value;
+            if (r && ret && ret < r) {
+                alert("Return Date must be the same as or after Rental Date.");
+                return;
+            }
+            if (!$("agree").checked) {
+                alert("Please acknowledge and agree to the rules and terms.");
+                return;
+            }
+
+            const filename = await generateAndDownloadPDF();
+
+            const subject = `Golf Cart Rental Contract — ${fmt($("name").value)} — ${fmt($("rentalDate").value)} to ${fmt($("returnDate").value)}`;
+            const emailBody =
+                buildSummary() +
+                `\n\nIMPORTANT:\nPlease attach the downloaded PDF file named:\n${filename}\n\nThen send this email.`;
+
+            openMailClient(subject, emailBody);
+        });
+    </script>
+</body>
+
+</html>
